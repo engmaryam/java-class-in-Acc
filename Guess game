@@ -1,0 +1,43 @@
+package javaapplication47;
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class JavaApplication47 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int number = 0;
+        String confirm = "NO";
+        do { 
+            guess(number);
+            System.out.println("Enter NO IF YOU DONE");
+        confirm = sc.nextLine();
+           
+        } while (!confirm.equals("NO"));
+
+        
+    }
+
+    public static void guess(int num) {
+
+        Scanner sc = new Scanner(System.in);
+        Random r = new Random();
+        int conum = r.nextInt(101);
+        System.out.println(conum);
+        do {
+            System.out.println("Enter the number");
+            num = sc.nextInt();
+            if (num == conum) {
+                System.out.println("That is right&& cheers ");
+
+            } else if (num > conum) {
+                System.out.println("Oops :try lower Number");
+
+            } else if (num < conum) {
+                System.out.println("Oops :try higher Number");
+            }
+        } while (num != conum);
+
+    }
+}
