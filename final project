@@ -1,3 +1,95 @@
+ // first one is main package 
+ ackage javaonefinal;
+
+public class JavaOneFinal {
+
+    
+    public static void main(String[] args) {
+        //Create three customers. One will use a default constructor.
+        Person customer1 = new Person("Susan Rodriguez", 33);
+        Person customer2 = new Person("Bob",21);
+        Person customer3 = new Person("Mark Johnson", 67);
+        
+        //Standard hourly employee, so no commission.
+        Employee employee1 = new HourlyEmployee(10.75, "Hal",18,1);
+        
+        //This one will use a constructor where I give it the base rate and commission
+        Employee employee2 = new CommissionEmployee( "Chirstie", 42 ,2,0.13 ,0.3);
+         Employee employee3 = new CommissionEmployee("Carol",22 ,3, 0.1, 2.5);
+        //This one will use the default base rate and commission.
+        System.out.println("Default Base Commission Pay: " + CommissionEmployee.STARTING_RATE);
+        System.out.println("Default Commisison Percent: " + CommissionEmployee.STARTING_COMMISSION);
+       
+        
+        //Create the invoices
+        Invoice invoice1 = new Invoice(customer1, employee1);
+        Invoice invoice2 = new Invoice(customer2, employee2);
+        Invoice invoice3 = new Invoice(customer3, employee3);
+        
+        //Create a bunch of line items.
+        LineItem pencilSharpener = new LineItem(2, "Pencil Sharpener", 1, 3.00);
+        LineItem pens = new LineItem(3, "Pen", 3, 1.50);
+        LineItem notepads = new LineItem(4, "Notepad", 2, 4.00);
+        LineItem records = new LineItem(1, "Vinyl Record", 2, 10.00);
+        LineItem marbles = new LineItem(5, "Bag of Marbles", 1, 5.00);
+        LineItem tuna = new LineItem(6, "Chunk of Tuna", 1, 18.00);
+        LineItem moon = new LineItem(7, "1/16 Scale Replica of the Moon", 1, 150000);
+        LineItem soda = new LineItem(8, "Generic Brand Soda", 3, 1.50);
+        LineItem popcorn = new LineItem(9, "Popcorn", 1, 5.00);
+        LineItem twizzlers = new LineItem(10, "Twizzlers, king size", 1, 4.50);
+        
+        //Printing out all the customers.
+        System.out.println("Customers: ");
+        System.out.println(customer1);
+        System.out.println(customer2);
+        System.out.println(customer3);
+        System.out.println("\n\n");
+        
+        //Printing out all the employees.
+        System.out.println("Employees: ");
+        System.out.println(employee1);
+        System.out.println(" ");
+        System.out.println(employee2);
+        System.out.println(" ");
+        System.out.println(employee3);
+        System.out.println("\n\n");
+        
+        //Adding line items to the invoice.
+        invoice1.addLineItem(pencilSharpener);
+        invoice1.addLineItem(pens);
+        invoice1.addLineItem(notepads);
+        
+        invoice2.addLineItem(records);
+        invoice2.addLineItem(marbles);
+        invoice2.addLineItem(tuna);
+        invoice2.addLineItem(moon);
+        
+        invoice3.addLineItem(soda);
+        invoice3.addLineItem(popcorn);
+        invoice3.addLineItem(twizzlers);
+        
+        //Printing out the invoices.
+        System.out.println("Invoices");
+        System.out.println("********\n");
+        invoice1.print();
+        System.out.println("\n");
+        
+        invoice2.print();
+        System.out.println("\n");
+        
+        invoice3.print();
+        System.out.println("\n");
+        
+        //Printing out total commission earned across all employees.
+        System.out.println("Total Commission Earned: " + CommissionEmployee.getAllEmployeesTotalCommission());
+    }
+}
+
+
+
+
+*********************
+// fisrt class Employee
 package javaonefinal;
 
 public abstract  class Employee {
@@ -37,6 +129,8 @@ public abstract  class Employee {
     public int getID() {
         return ID;
     }
+   
+    
 
     public void setID(int ID) {
         this.ID = ID;
@@ -46,4 +140,298 @@ public abstract  class Employee {
     }
     
 }
+
+
+
+    //Houraly Employee class is extends Employee class
+    
+        
+package javaonefinal;
+
+
+public class HourlyEmployee  extends Employee{
+    double Houraly_rate;
+
+    public HourlyEmployee() {
+    }
+
+    public HourlyEmployee(double Houraly_rate, String name, int age, int ID) {
+        super(name, age, ID);
+        this.Houraly_rate = Houraly_rate;
+    }
+
+    public void setHouraly_rate(double Houraly_rate) {
+        this.Houraly_rate = Houraly_rate;
+    }
+
+    public double getHouraly_rate() {
+        return Houraly_rate;
+    }
+    
+
+    @Override
+    public String toString() {
+        System.out.println(super.toString());
+        return " " + "Houraly_rate=" + Houraly_rate + ' ';
+    }
+    
+}
+
+
+
+// Comissionemployee class is extends to Employee class
+
+
+package javaonefinal;
+
+
+public class CommissionEmployee extends Employee {
+  static final  double STARTING_RATE=2.5;
+  static final  double STARTING_COMMISSION=0.1;
+double Commission;
+    double Bass_rate;
+    static  double TotalCommission=0;
+
+    public CommissionEmployee() {
+    }
+
+    public CommissionEmployee( String name, int age, int ID,double Commission,  double Bass_rate) {
+        super(name, age, ID);
+     this.Commission = Commission;
+        this.Bass_rate= Bass_rate;
+    
+    }
+
+    @Override
+    public String toString() {
+        System.out.println(super.toString());
+        return "  " + "Commission: " + Commission + "  Bass_rate: " + Bass_rate + ' ';
+    }
+
+    public  double getCommission() {
+        return Commission;
+    }
+
+    public void setCommission(double Commission) {
+        this.Commission = Commission;
+    }
+
+    public double getBass_rate() {
+        return Bass_rate;
+    }
+
+    public void setBass_rate(double Bass_rate) {
+        this.Bass_rate = Bass_rate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    
+
+    public static double getAllEmployeesTotalCommission(){
+   return TotalCommission;
+    }
+    
+}
+
+// lineitem class to defined item
+
+
+package javaonefinal;
+
+
+public class LineItem {
+    protected int number;
+  protected  String item;
+ protected   int Qty;
+   protected  double price;
+
+    public LineItem() {
+    }
+
+    public LineItem(int number, String item, int Qty, double price) {
+        this.number = number;
+        this.item = item;
+        this.Qty = Qty;
+        this.price = price;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public int getQty() {
+        return Qty;
+    }
+
+    public void setQty(int Qty) {
+        this.Qty = Qty;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "LineItem{" + "number=" + number + ", item=" + item + ", Qty=" + Qty + ", price=" + price + '}';
+    }
+
+     
+    
+    
+}
+
+
+// person class to define customer information
+
+package javaonefinal;
+
+public class Person extends Employee {
+   protected  String name;
+     protected int age;
+
+    public Person() {
+        this.name = "Alx";
+        this.age =33;
+        
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+        
+    }
+
+    @Override
+    public String toString() {
+        return " " + "name: " + name + ", age: " + age + ' ';
+    }
+    
+}
+
+// finally invoice class implement all of this
+
+
+package javaonefinal;
+import java.util.ArrayList;
+//import java.text.Format;
+import java.text.NumberFormat;
+public class Invoice {
+    Employee employee;
+    Person person;
+ArrayList<LineItem> Lineitem=new ArrayList();
+    public Invoice() {
+      this.person= new Person();
+      this.employee=new HourlyEmployee();
+      
+      
+    }
+
+    public Invoice(Person person,Employee employee) {
+        this.employee = employee;
+        this.person = person;
+        
+    }
+
+    public void addLineItem(LineItem Lineitem ){
+        this.Lineitem.add(Lineitem);
+        
+    } public void print(){
+        
+       NumberFormat defult=NumberFormat.getCurrencyInstance();
+            System.out.println("Customer:"+this.person.getName());
+            System.out.println("Employee:"+this.employee.getName()+"  "+"  ID: "+this.employee.getID());
+            System.out.println("\n");
+            System.out.println("LineItem");
+            System.out.println("--------------------");
+            int i;
+             for( i=0;i<this.Lineitem.size();i++){
+            System.out.println( this.Lineitem.get(i).getNumber()+":"+this.Lineitem.get(i).getItem()+"\n"+"Qty: "+this.Lineitem.get(i).getQty()+"\n"+"price per :"
+                    +this.Lineitem.get(i).getPrice());
+             }
+            System.out.println("--------------------");
+            double  sum=0;
+          double tax=0;
+               for( i=0;i<this.Lineitem.size();i++){
+            
+        sum+=this.Lineitem.get(i).price*this.Lineitem.get(i).Qty;
+        tax=sum*0.0825;
+               }
+            System.out.println("pre_Tax: "+ defult.format(sum));
+            System.out.println("Tax : "+ defult.format(tax));
+            double total=sum+tax;
+             System.out.println("Total Due: " + defult.format(total));
+             System.out.println(" ");
+             if (this.employee instanceof CommissionEmployee) {
+            CommissionEmployee com = (CommissionEmployee)this.employee;
+           com.Commission= sum*com.getCommission();
+                 System.out.println("Commission Earned:"+defult.format(com.Commission));
+                 CommissionEmployee.TotalCommission+=com.Commission;
+                 
+                 System.out.println("\n");
+             }
+        }
+                
+        }
+    
+
+    
+    
+
 
