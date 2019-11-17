@@ -1,0 +1,140 @@
+//Practice
+//Write a program that gets 10 grades (int) from the user. After you get the 10 grades, print out the sum and average for those grades
+
+package javaapplication133;
+
+import java.util.Scanner;
+
+public class JavaApplication133 {
+
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        int a[]=new int[7];
+        System.out.println("Enter 7 number");
+        for(int i=0;i<a.length;i++){
+            a[i]=scanner.nextInt();
+        }
+        
+        System.out.println( "the avrage=" +sum(a));
+     
+       }public  static int sum(int a[]){
+           int sum=0;
+           for(int i=0;i<a.length;i++){
+               sum+=a[i];
+              
+           }int avg;
+           avg=sum/a.length;
+           return avg;
+           
+       }
+        
+    }
+    
+// Practice
+//Lets write our own String class. Kinda.
+//Create an array of characters, and get the first 10 letters from the user and put them in a character array.
+//THEN, print out those 10 characters in one line. 
+    
+
+public class JavaApplication133 {
+
+    public static void main(String[] args) {
+        System.out.println("Enter char:");
+        Scanner s=new Scanner (System.in);
+        char a[]=new char[5];
+        for(int i=0;i<a.length;i++)
+        {
+        a[i]=s.next().charAt(0);
+    }
+    character(a);
+        
+        
+    }public static void character(char a[]){
+        for(int i=0;i<a.length;i++){
+                System.out.print(a[i]);
+        
+        }
+    }
+}
+
+
+package javaapplication133;
+
+import java.util.Scanner;
+
+public class JavaApplication133 {
+
+    public static void main(String[] args) {
+    /*  Quiz! Write a hello world if you haven’t gotten it right yet
+Warm-up: Write a program that does this:
+Think of a number between 1 and 100.
+Multiply your number by 4.
+Add 12.
+Multiply this number by 2.
+Add 16.
+Divide this number by 8.
+Subtract your original number.
+What’s the number you always get?
+        */
+    int temp;
+    do{
+        System.out.println("Enter number between 1&100");
+    Scanner s=new Scanner(System.in);
+     temp=s.nextInt();
+    int num=temp;
+    if( num>1&&num<100){
+        num*=4;
+                System.out.println(num);
+
+        num+=12;
+                System.out.println(num);
+
+        
+        num*=2;
+                System.out.println(num);
+
+        num+=16;
+                System.out.println(num);
+
+        num/=2;
+                System.out.println(num);
+
+                temp= temp-num;
+                System.out.println(temp);
+    }else{
+        System.out.println("this Wronge number you Enter it");
+    }
+        }while(temp!=0);
+    }
+}
+
+
+//Write FizzBuzz
+//Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz”
+//instead of the number
+//and for the multiples of five print “Buzz”. 
+//For numbers which are multiples of both three and five print “FizzBuzz”.
+package javaapplication133;
+
+import java.util.Scanner;
+
+public class JavaApplication133 {
+
+    public static void main(String[] args) {
+        
+       for(int i=1;i<=100;i++){
+           if(i%3==0&&i%5==0){
+               System.out.println("FizzBuzz");  
+           }else if(i%3==0)
+           {
+               System.out.println("Fizz");
+           }else if(i%5==0)
+           {
+               System.out.println("Buzz");
+           }
+           else{
+               System.out.println(i);
+           }
+}
+    }
+}
