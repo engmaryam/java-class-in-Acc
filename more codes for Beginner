@@ -1,0 +1,166 @@
+//Homework
+//Lets circle back to the classic grades calculation!
+//Write a program that gets 10 grades, stores them in an array, finds the minimum grade and replaces it with the maximum grade. THEN, calculate their average score. And print it out.
+//**Write findMinimum and findMaximum as functions, if you can.
+//**Bonus points if you break more stuff into functions
+    
+package javaapplication133;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class JavaApplication133 {
+
+
+       
+
+    public static void main(String[] args) {
+        //Step 1: Set stuff up
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("How many grades do you have?");
+        int numGrades = scanner.nextInt();
+        double[] myGrades = getGrades(numGrades);
+
+        replaceLowest(myGrades);
+        replaceLowest(myGrades);
+
+        double sum = findSum(myGrades);
+        double average = findAverage(sum, myGrades.length);
+
+        printResults(myGrades, sum, average);
+    }
+
+    /**
+     * Replaces the lowest grade in the array with the highest grade in
+     * the array.
+     * 
+     * @param grades The array of existing grades.
+     */
+    public static void replaceLowest(double[] grades) {
+        double min = 101;
+        double max = -1;
+        for (double grade : grades) {
+            if (grade < min) {
+                min = grade;
+            }
+            if (grade > max) {
+                max = grade;
+            }
+        }
+
+        for (int i = 0; i < grades.length; ++i) {
+            if (grades[i] == min) {
+                System.out.println("Replacing " + min + " with " + max);
+                grades[i] = max;
+                break;
+            }
+        }
+    }
+
+    public static double[] getGrades(int numGrades) {
+        Scanner scanner = new Scanner(System.in);
+        double[] grades = new double[numGrades];
+
+        for (int gradeNum = 0; gradeNum < numGrades; ++gradeNum) {
+            System.out.println("Please enter an acceptable grade " + (gradeNum + 1) + ":");
+            double grade = scanner.nextDouble();
+
+            if (grade <= 100 && grade >= 0) {
+                grades[gradeNum] = grade;
+            } else {
+                System.out.println("That's not a valid grade...");
+                gradeNum--;
+            }
+        }
+        return grades;
+    }
+
+    public static void printResults(double[] grades, double sum, double average) {
+        for (int i = 0; i < grades.length; ++i) {
+            System.out.println("Grade " + (i + 1) + ": " + grades[i]);
+        }
+        System.out.println("The sum is: " + sum);
+        System.out.println("The average is: " + average);
+    }
+
+    public static double findSum(double[] grades) {
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        return sum;
+    }
+
+    public static double findAverage(double sum, int count) {
+        return sum / count;
+    }
+
+}
+
+ //encryption and decryption by character
+
+package javaapplication136;
+
+public class JavaApplication136 {
+
+  
+    public static void main(String[] args) {
+
+        char[] message = "Hello, you are awesome. Have a nice day.".toCharArray();
+        int offset = 8;
+        System.out.println("Before:");
+        print(message);
+        System.out.println("After:");
+        char[] encrypted = encrypt(message, offset);
+        print(encrypted);
+        System.out.println("Decrypted:");
+        char[] decrypted = decrypt(encrypted, offset);
+        print(decrypted);
+    }
+    
+    public static char[] encrypt(char[] message, int offset) {
+        char[] encrypted = new char[message.length]; //Make an array of the same size to store the encrypted letters
+        for (int i=0; i<message.length; ++i) {
+            encrypted[i] = (char)((int)message[i] + offset); //Since chars are just numbers, force it to add the offset to the char
+        }
+        return encrypted;
+    }
+    
+    public static char[] decrypt(char[] message, int offset) {
+        return encrypt(message, -offset); //Since decrypt is just a backwards encrypt, call encrypt with the opposite
+    }
+    
+    public static void print(char[] message) {
+        for (char c : message) {
+            System.out.print(c);
+        }
+        System.out.println("");
+    }
+}
+
+
+ //Factorial :Playing with factorials
+ 
+package javaapplication137;
+
+public class JavaApplication137 {
+
+    public static void main(String[] args) {
+      
+        System.out.println("Playing with factorials...");
+        int factorialed = factorial(5);
+        System.out.println(factorialed);
+    }
+    
+    // An example of a recursive function.
+    public static int factorial(int x) {
+        if (x == 1) {
+            return x;
+        }
+        else {
+            return x * factorial(x-1);
+        }
+    }
+    
+    
