@@ -164,3 +164,70 @@ public class JavaApplication137 {
     }
     
     
+   // Take your favorite Grades averaging program, but instead of getting each grade individually,
+   // get a whole line (nextLine) and use .
+   // split and Double.valueOf() to turn the number strings into…numbers. 
+      
+package javaapplication138;
+
+import java.util.Scanner;
+
+public class JavaApplication138 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Enter some grades, split by commas.");
+        String gradeString = scanner.nextLine().trim();
+        String[] gradeSplit = gradeString.split(",");
+        double sum = 0;
+        for (String s : gradeSplit) {
+            double grade = Double.valueOf(s);
+            sum += grade;
+        }
+        
+        double average = sum / gradeSplit.length;
+        System.out.println("Sum: " + sum);
+        System.out.println("Avg: " + average);
+    }
+    
+}
+
+//Write a language filter. Get a sentence from the user. Then use .
+//replaceAll several times to make sure that anything bad is replaced with ****’s. 
+//Then print out the filtered sentence.
+
+
+package javaapplication139;
+
+import java.util.Scanner;
+
+public class JavaApplication139 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Please enter a sentence: ");
+        String input = scanner.nextLine();
+        char[] inputChars = input.toCharArray();
+        boolean[] uppers = new boolean[input.length()];
+        for (int i=0; i< inputChars.length; ++i) {
+            if (Character.isUpperCase(inputChars[i]))
+                uppers[i] = true;
+        }
+        input = input.toLowerCase();
+        input = input.replaceAll("fork", "****");
+        input = input.replaceAll("spoon", "*****");
+        
+        for (int i=0; i< uppers.length; ++i) {
+            char c = input.charAt(i);
+            if (uppers[i] == true) {
+                c = Character.toUpperCase(c);
+            }
+            System.out.print(c);
+        }
+        System.out.println("");
+        
+    }
+    
+    
