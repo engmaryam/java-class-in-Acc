@@ -1,0 +1,21 @@
+writing program to count the number of bits that are set to 1 in a nonnegative 
+
+
+package javaapplication139;
+
+public class JavaApplication139 {
+
+
+    public static void main(String[] args) {
+        int y=275;
+        System.out.println(countbits(y));
+       
+    }public static short countbits( int x){ 
+        short numbits=0;
+        while(x!=0){
+            numbits+=(x&1); // And oprator
+            x>>>=1; // unsigned right shift 
+        }
+        return numbits;
+    }
+}
