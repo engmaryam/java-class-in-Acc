@@ -35,5 +35,87 @@ public class JavaApplication133 {
         System.out.println("        *");
     }
 }
+// 
 
+
+package practice4;
+
+public class Practice4 {
+
+    public static void main(String[] args) {
+        int height = 5; //Actually height per half of the hourglass.
+        int lip = 3; //Size of the lip on each side.
+        
+        drawLip(height, lip);
+        
+        drawHourglass(height, lip);
+//        drawMessyHourglass(height, lip);
+        
+        drawLip(height, lip);
+    }
+    
+    /**
+     * This one counts downward and then back up in one loop.
+     * It's handy to do it this way because the bottom is a mirror of the top.
+     * All I had to do was flip the mod once I reached 1.
+     * 
+     * @param height
+     * @param lip 
+     */
+    public static void drawHourglass(int height, int lip) {
+        int mod = 1;
+        for (int i=height; i<= height; i -= mod) {
+            for (int j=lip+(height-i); j>0; --j) {
+                System.out.print(" ");
+            }
+            for (int j=0; j<i*2; ++j) {
+                System.out.print("*");
+            }
+            System.out.println("");
+            if (i == 1)
+                mod = -1;
+        }
+    }
+    
+    public static void drawLip(int height, int lip) {
+        for (int i=0; i< (height+lip) * 2; ++i) {
+            System.out.print("*");
+        }
+        System.out.println("");
+    }
+    
+    /**
+     * This one got messy, but it's more straightforward. 
+     * It does two sets of loops.
+     * One draws down, and the other draws up.
+     * I did lots of -1's and +1's to make it look right.
+     * 
+     * @param height
+     * @param lip 
+     */
+    public static void drawMessyHourglass(int height, int lip) {
+        // Draw downwards.
+        for (int i = height; i > 0; --i) {
+            for (int j = height - i + lip; j > 0; --j) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i * 2; ++j) {
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+
+        // Draw upwards.
+        for (int i = height; i > 0; --i) {
+            for (int j = 0; i - j - 1 + lip > 0; ++j) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < (height - i + 1) * 2; ++j) {
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+    }
+
+}
 
