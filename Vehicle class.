@@ -1,0 +1,464 @@
+// vehicle
+
+package vehiclesrock;
+
+import java.util.Random;
+import java.util.ArrayList;
+
+import vehiclesrock.passenger.Human;
+import vehiclesrock.passenger.Passenger;
+
+public abstract class Vehicle {
+
+    protected int numberOfGears;
+    protected int topSpeed;
+    protected int currentSpeed;
+    protected String tireType;
+    protected int maxPassengers;
+    protected ArrayList<Passenger> currentPassengers;
+
+    protected int acceleration;
+    protected int braking;
+
+    public void accelerate() {
+
+        if (this.currentPassengers.isEmpty() || !this.containsHuman()) {
+            System.out.println("Who do you think is driving this thing?!");
+            return;
+        }
+
+        this.currentSpeed += acceleration;
+        if (this.currentSpeed > this.topSpeed) {
+            this.currentSpeed = this.topSpeed;
+        }
+    }
+
+    public void brake() {
+        this.currentSpeed -= braking;
+        if (this.currentSpeed < 0) {
+            this.currentSpeed = 0;
+        }
+    }
+
+    public void printCurrentSpeed() {
+        System.out.println("Current Speed: " + this.currentSpeed);
+    }
+
+    public boolean containsHuman() {
+        for (Passenger p : this.currentPassengers) {
+            if (p instanceof Human) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addPassenger(Passenger p) {
+        if (currentPassengers.size() < maxPassengers) {
+            if (currentSpeed <= 15) {
+                currentPassengers.add(p);
+            } else {
+                System.out.println("Thing's moving too fast to jump in!");
+            }
+        } else {
+            System.out.println("No can do. Vehicle's full up, yo!");
+        }
+    }
+
+    public Passenger removePassenger() {
+        if (currentPassengers.isEmpty()) {
+            System.out.println("Can't remove something that isn't there...");
+            return null;
+        }
+        if (currentSpeed > 15) {
+            System.out.println("We're going too fast to jump out! Slow down!");
+            return null;
+        }
+        Random random = new Random();
+        int passengerNumber = random.nextInt(currentPassengers.size());
+        Passenger p = currentPassengers.get(passengerNumber);
+        currentPassengers.remove(passengerNumber);
+        return p;
+    }
+
+    public void removePassenger(Passenger p) {
+        if (currentSpeed > 15) {
+            System.out.println("We're going too fast to jump out! Slow down!");
+            return;
+        }
+        if (currentPassengers.contains(p)) {
+            currentPassengers.remove(p);
+            if (!this.containsHuman() && this.currentSpeed != 0)
+                System.out.println("...and the vehicle crashes?");
+        } else {
+            System.out.println(p.getName() + " isn't in the vehicle, dood.");
+        }
+    }
+
+    public void coast() {
+        if (this.currentSpeed > 0) {
+            for (Passenger p : this.currentPassengers) {
+                p.enjoyTheRide();
+            }
+        }
+        else {
+            System.out.println("Hard to coast if you're not going anywhere...");
+        }
+    }
+    
+    public void setMaxPassengers(int maxPassengers) {
+        if (this.currentPassengers.isEmpty()) 
+            this.maxPassengers = maxPassengers;
+        else
+            System.out.println("Empty the vehicle before you change the seats!");
+    }
+    
+    // ** STANDARD GETTERS AND SETTERS **
+    
+    public int getCurrentPassengerCount() {
+        return this.currentPassengers.size();
+    }
+
+    public int getCurrentSpeed() {
+        return this.currentSpeed;
+    }
+    
+    public int getNumberOfGears() {
+        return numberOfGears;
+    }
+
+    public void setNumberOfGears(int numberOfGears) {
+        this.numberOfGears = numberOfGears;
+    }
+
+    public int getTopSpeed() {
+        return topSpeed;
+    }
+
+    public void setTopSpeed(int topSpeed) {
+        this.topSpeed = topSpeed;
+    }
+
+    public String getTireType() {
+        return tireType;
+    }
+
+    public void setTireType(String tireType) {
+        this.tireType = tireType;
+    }
+
+    public int getMaxPassengers() {
+        return maxPassengers;
+    }
+
+    public int getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(int acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public int getBraking() {
+        return braking;
+    }
+
+    public void setBraking(int braking) {
+        this.braking = braking;
+    }
+    
+    
+}
+
+
+//Bicycle
+
+package vehiclesrock.bicycle;
+
+import java.util.ArrayList;
+import vehiclesrock.Vehicle;
+
+public class Bicycle extends Vehicle {
+
+    protected int saddleHeightInInches;
+    
+    public Bicycle() {
+        this.numberOfGears = 5;
+        this.topSpeed = 25;
+        this.tireType = "Normal Bike Tires";
+        this.maxPassengers = 1;
+        this.currentPassengers = new ArrayList();
+        this.acceleration = 5;
+        this.braking = 10;
+        this.saddleHeightInInches = 4;
+    }
+    
+    public Bicycle(int saddleHeight) {
+        this();
+        this.saddleHeightInInches = saddleHeight;
+    }
+    
+    public void setSaddleHeightInInches(int height) {
+        if (this.currentPassengers.isEmpty())
+            this.saddleHeightInInches = height;
+        else
+            System.out.println("Get off the bike before changing the seat.");
+    }
+    
+    public int getSaddleHeightInInches() {
+        return this.saddleHeightInInches;
+    }
+}
+
+//MountainBike
+
+package vehiclesrock.bicycle;
+
+public class MountainBike extends Bicycle {
+
+    protected String suspensionTension;
+    
+    public MountainBike() {
+        super();
+        this.numberOfGears = 15;
+        this.topSpeed = 20;
+        this.tireType = "Sturdy as Hell Tires!";
+        this.suspensionTension = "Medium";
+    }
+    
+    public MountainBike(int saddleHeight) {
+        this();
+        this.saddleHeightInInches = saddleHeight;
+    }
+    
+    // ** STANDARD GETTERS AND SETTERS ** 
+
+    public String getSuspensionTension() {
+        return suspensionTension;
+    }
+
+    public void setSuspensionTension(String suspensionTension) {
+        this.suspensionTension = suspensionTension;
+    }
+}
+// RoadBike
+package vehiclesrock.bicycle;
+
+public class RoadBike extends Bicycle {
+
+    public RoadBike() {
+        super();
+        this.numberOfGears = 1;
+    }
+}
+
+//automobile
+
+package vehiclesrock.automobile;
+
+import java.util.Random;
+import vehiclesrock.Vehicle;
+
+public abstract class Automobile extends Vehicle {
+
+    protected String VIN;
+    protected int mileage;
+    
+    protected static String generateVIN() {
+        Random random = new Random();
+        int size = 17;
+        char[] vin = new char[size];
+        for (int i=0; i<size; ++i) {
+            int choice = random.nextInt(5);
+            char c;
+            switch (choice) {
+                case 0:
+                case 1:
+                    c = (char)(random.nextInt(26)+97);
+                    break;
+                case 2:
+                case 3:
+                    c = (char)(random.nextInt(26)+65);
+                    break;
+                default:
+                    c = (char)(random.nextInt(10)+48);
+                    break;
+            }
+            vin[i] = c;
+        }
+        String vinString = new String(vin);
+        return vinString;
+    }
+
+    @Override
+    public void coast() {
+        super.coast();
+        this.mileage += this.currentSpeed;
+    }
+    
+    // ** STANDARD GETTERS AND SETTERS **
+    
+    public String getVIN() {
+        return this.VIN;
+    }
+    
+    public int getMileage() {
+        return this.mileage;
+    }
+}
+// Automobile
+package vehiclesrock.automobile;
+
+import java.util.ArrayList;
+
+public class Car extends Automobile {
+
+    public Car() {
+        this.numberOfGears = 5;
+        this.topSpeed = 120;
+        this.currentSpeed = 0;
+        this.tireType = "Regular Car Tires";
+        this.maxPassengers = 4;
+        this.currentPassengers = new ArrayList();
+        this.acceleration = 15;
+        this.braking = 10;
+        this.VIN = Automobile.generateVIN();
+        this.mileage = 0;
+    }
+}
+// motocycle
+
+package vehiclesrock.automobile;
+
+import java.util.ArrayList;
+
+public class Motorcycle extends Automobile {
+
+    protected boolean hasSidecar;
+    
+    public Motorcycle() {
+        this.numberOfGears = 5;
+        this.topSpeed = 110;
+        this.currentSpeed = 0;
+        this.tireType = "Motorcycle Tires";
+        this.maxPassengers = 2;
+        this.currentPassengers = new ArrayList();
+        this.acceleration = 25;
+        this.braking = 20;
+        this.VIN = Automobile.generateVIN();
+        this.mileage = 0;
+        this.hasSidecar = false;
+    }
+
+    public boolean hasSidecar() {
+        return this.hasSidecar;
+    }
+    
+    public void attachSidecar() {
+        if (!this.hasSidecar) {
+            this.maxPassengers += 1;
+            this.hasSidecar = true;
+        }
+        else {
+            System.out.println("Thing's already attached.");
+        }
+    }
+    
+    public void detachSidecar() {
+        if (!this.hasSidecar) {
+            System.out.println("Can't detach that which isn't there.");
+        }
+        if (this.currentSpeed > 0) {
+            System.out.println("Can't detach. We're in motion!");
+            return;
+        }
+        if (this.currentPassengers.size() == this.maxPassengers) {
+            System.out.println("Can't detach. Someone's in the thing.");
+            return;
+        }
+        
+        this.maxPassengers -= 1;
+        this.hasSidecar = false;
+    }
+}
+//Passenger
+
+package vehiclesrock.passenger;
+
+public abstract class Passenger {
+
+    protected String name;
+    
+    public Passenger(String name) {
+        this.name = name;
+    }
+        
+    public abstract void enjoyTheRide();
+    
+    
+    // ** STANDARD GETTERS AND SETTERS ** 
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+}
+
+//Dog
+package vehiclesrock.passenger;
+
+public class Dog extends Passenger {
+
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public void enjoyTheRide() {
+        System.out.println(this.name + " wags his tail.");
+    }
+}
+
+//Human
+  
+package vehiclesrock.passenger;
+
+import java.util.Random;
+
+public class Human extends Passenger {
+
+    public Human(String name) {
+        super(name);
+    }
+    
+    @Override
+    public void enjoyTheRide() {
+        Random random = new Random();
+        System.out.print(this.name);
+        int choice = random.nextInt(6);
+        switch(choice) {
+            case 0:
+                System.out.println(" whistles a tune.");
+                break;
+            case 1:
+                System.out.println(" sighs contentedly.");
+                break;
+            case 2:
+                System.out.println(" rocks out to the radio.");
+                break;
+            case 3:
+                System.out.println(" zones out.");
+                break;
+            case 4:
+                System.out.println(" thinks about programming.");
+                break;
+            default:
+                System.out.println(" talks about how awesome Steven is.");
+        }
+    }
+
+}
+_____________________________
